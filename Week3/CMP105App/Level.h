@@ -20,6 +20,10 @@ private:
 	void beginDraw();
 	void endDraw();
 
+	//moving circle vars
+	sf::CircleShape circle;
+	float speed;
+
 	// Default variables for level class.
 	sf::RenderWindow* window;
 	Input* input;
