@@ -14,7 +14,8 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 	circle.setOutlineColor(sf::Color::Magenta);
 	circle.setOutlineThickness(2.f);
 
-	speed = 50.f;
+	speedX = 50.f;
+	speedY = 50.f;
 }
 
 Level::~Level()
@@ -28,32 +29,42 @@ void Level::handleInput(float dt)
 	//SPEED//////////////////////////////////////
 	if (input->isKeyDown(sf::Keyboard::Add))
 	{
-		speed++;
+		speedX++;
+		speedY++;
 	}
 	if (input->isKeyDown(sf::Keyboard::Subtract))
 	{
-		speed--;
+		speedX--;
+		speedY--;
 	}
 	//DIRECTIONS/////////////////////////////////
 	if (input->isKeyDown(sf::Keyboard::Right))
 	{
+		speedX = 100.f;
+		speedY = 0;
 		input->setKeyUp(sf::Keyboard::Right);
-		circle.move(speed * dt, 0);
+		circle.move(speedX * dt, speedY * dt);
 	}
 	if (input->isKeyDown(sf::Keyboard::Left))
 	{
+		speedX = -100;
+		speedY = 0;
 		input->setKeyUp(sf::Keyboard::Left);
-		circle.move(speed * dt, 1);
+		circle.move(speedX * dt, speedY * dt);
 	}
 	if (input->isKeyDown(sf::Keyboard::Up))
 	{
+		speedY = -100;
+		speedX = 0;
 		input->setKeyUp(sf::Keyboard::Up);
-		circle.move(speed * dt, 2);
+		circle.move(speedX * dt, speedY * dt);
 	}
 	if (input->isKeyDown(sf::Keyboard::Down))
 	{
+		speedY = 100;
+		speedX = 0;
 		input->setKeyUp(sf::Keyboard::Down);
-		circle.move(speed * dt, 3);
+		circle.move(speedX * dt, speedY * dt);
 	}
 }
 
@@ -63,23 +74,23 @@ void Level::update(float dt)
 	sf::Vector2u res = window->getSize();
 	//update and move circle
 
-	circle.move(speed * dt, 0);
+	circle.move(speedX * dt, speedY*dt);
 
 	if (circle.getPosition().x+15 > res.x)
 	{
-		speed = speed * -1;
+		speedX = speedX * -1;
 	}
 	if (circle.getPosition().x < 0)
 	{
-		speed = speed * -1;
+		speedX = speedX * -1;
 	}
 	if (circle.getPosition().y + 15 > res.y)
 	{
-		speed = speed * -1;
+		speedY = speedY * -1;
 	}
 	if (circle.getPosition().y < 0)
 	{
-		speed = speed * -1;
+		speedY = speedY * -1;
 	}
 
 }

@@ -22,7 +22,8 @@ private:
 
 	//moving circle vars
 	sf::CircleShape circle;
-	float speed;
+	float speedX;
+	float speedY;
 
 	// Default variables for level class.
 	sf::RenderWindow* window;
